@@ -17,17 +17,11 @@ class Reminder
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
-
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $displayDate = null;
 
     #[ORM\Column]
-    private ?bool $isDone = null;
-
-    #[ORM\ManyToOne(inversedBy: 'reminders')]
-    private ?category $category = null;
+    private ?bool $isDone = false;
 
     public function getId(): ?int
     {
@@ -39,22 +33,9 @@ class Reminder
         return $this->title;
     }
 
-    public function setTitle(string $title): static
+    public function setTitle(string $title): self
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
-    {
-        $this->createdAt = $createdAt;
-
         return $this;
     }
 
@@ -63,10 +44,9 @@ class Reminder
         return $this->displayDate;
     }
 
-    public function setDisplayDate(\DateTimeInterface $displayDate): static
+    public function setDisplayDate(\DateTimeInterface $displayDate): self
     {
         $this->displayDate = $displayDate;
-
         return $this;
     }
 
@@ -75,22 +55,9 @@ class Reminder
         return $this->isDone;
     }
 
-    public function setDone(bool $isDone): static
+    public function setIsDone(bool $isDone): self
     {
         $this->isDone = $isDone;
-
-        return $this;
-    }
-
-    public function getCategory(): ?category
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?category $category): static
-    {
-        $this->category = $category;
-
         return $this;
     }
 }

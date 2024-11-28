@@ -1,35 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Category index{% endblock %}
+{% block title %}Liste des Catégories{% endblock %}
 
 {% block body %}
-    <h1>Category index</h1>
+    <h1 class="text-2xl font-bold mb-4 text-center">Liste des Catégories</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for category in categories %}
-            <tr>
-                <td>{{ category.id }}</td>
-                <td>{{ category.name }}</td>
-                <td>
-                    <a href="{{ path('app_category_show', {'id': category.id}) }}">show</a>
-                    <a href="{{ path('app_category_edit', {'id': category.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="flex justify-center">
+        <div class="overflow-x-auto w-1/3">
+            <table class="min-w-full border-collapse border border-gray-300 text-center">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="border border-gray-300 px-4 py-2">ID</th>
+                        <th class="border border-gray-300 px-4 py-2">Nom</th>
+                        <th class="border border-gray-300 px-4 py-2 w-1/3">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for category in categories %}
+                    <tr>
+                        <td class="border border-gray-300 px-4 py-1">{{ category.id }}</td>
+                        <td class="border border-gray-300 px-4 py-1">{{ category.name }}</td>
+                        <td class="border border-gray-300 px-2 py-1">
+                            <div class="flex justify-center space-x-2">
+                                <a href="{{ path('app_category_show', {'id': category.id}) }}" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">Voir</a>
+                                <a href="{{ path('app_category_edit', {'id': category.id}) }}" class="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600">Modifier</a>
+                                <form method="post" action="{{ path('app_category_delete', {'id': category.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
+                                    <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Supprimer</button> <!-- Assurez-vous que le type est "submit" -->
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3" class="border border-gray-300 px-4 py-2 text-center">Aucune catégorie trouvée</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-    <a href="{{ path('app_category_new') }}">Create new</a>
+    <div class="flex justify-center mt-4">
+        <a href="{{ path('app_category_new') }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Créer une nouvelle catégorie</a>
+    </div>
 {% endblock %}
