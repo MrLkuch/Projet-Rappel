@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier le Rappel{% endblock %}
+
+{% block body %}
+    <div class="max-w-2xl mx-auto p-4 bg-white rounded-lg shadow-md">
+        <h1 class="text-3xl font-bold mb-4 text-center">Modifier le Rappel</h1>
+
+        {{ form_start(form) }}
+            <div class="mb-4">
+                {{ form_label(form.title, null, {'label_attr': {'class': 'block text-gray-700 font-semibold'}}) }}
+                {{ form_widget(form.title, {'attr': {'class': 'mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200'}}) }}
+                {{ form_errors(form.title) }}
+            </div>
+
+            <div class="mb-4">
+                {{ form_label(form.displayDate, null, {'label_attr': {'class': 'block text-gray-700 font-semibold'}}) }}
+                {{ form_widget(form.displayDate, {'attr': {'class': 'mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200'}}) }}
+                {{ form_errors(form.displayDate) }}
+            </div>
+
+            <div class="mb-4">
+                {{ form_label(form.isDone, null, {'label_attr': {'class': 'block text-gray-700 font-semibold'}}) }}
+                {{ form_widget(form.isDone, {'attr': {'class': 'mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200'}}) }}
+                {{ form_errors(form.isDone) }}
+            </div>
+
+            <div class="flex justify-center mt-6">
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Sauvegarder</button>
+                <a href="{{ path('app_reminder_index') }}" class="ml-4 bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400">Annuler</a>
+            </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
